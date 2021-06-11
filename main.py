@@ -3,4 +3,4 @@ import graph
 GENERATE = True
 if(GENERATE):
     n = 5
-    graph.generate(n)
+    print(graph.Graph(n,False).matrice)

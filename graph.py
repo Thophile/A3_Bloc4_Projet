@@ -1,9 +1,18 @@
 import traffic
+import random
 
-# Generate a graphe of size n
-def generate(n):
+class Edge:
+    def __init__(self,length, traffic):
+        self.weigth = [length*i for i in traffic]
 
-    # @see traffic.py
-    traffic.generate()
-    print("graph generated")
-    pass
+class Graph:
+    def __init__(self,n,has_traffic):
+        g = []
+        for i in range(n):
+            row = []
+            for j in range(n):
+                row.append(Edge(
+                    random.randrange(1,10),
+                    traffic.generate() if has_traffic else [1]).weigth)
+            g.append(row)
+        self.matrice = g 
