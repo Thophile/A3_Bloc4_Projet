@@ -1,5 +1,4 @@
 # Generate traffic data for an edge
 def generate():
-    print("traffic generated")
-    #return array of slowth coeficient
-    return[3]
+    #return array of slowth coeficient [1-10]
+    return[1,2,5,7,4,6,9,3]
