@@ -8,9 +8,9 @@ class Edge:
 class Graph:
     def __init__(self,n,has_traffic):
         g = []
-        for i in range(n):
+        for _ in range(n):
             row = []
-            for j in range(n):
+            for _ in range(n):
                 row.append(Edge(
                     random.randrange(1,10),
                     traffic.generate() if has_traffic else [1]).weigth)
