@@ -1,6 +1,6 @@
-import graph
+from graph import Graph 
 
 GENERATE = True
 if(GENERATE):
     n = 5
-    print(graph.Graph(n,False).matrice)
+    print(Graph(n,False).matrice)
