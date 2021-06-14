@@ -1,4 +1,4 @@
-import traffic
+from traffic import generate
 import random
 
 class Edge:
@@ -21,7 +21,7 @@ class Graph:
                         # weight is 0 if the edge is a loop
                         random.randrange((1 if is_complete else 0),10) if i!=j else 0,
                         # Generated traffic data or 1 if traffic is not used
-                        traffic.generate() if has_traffic else [1] 
+                        generate() if has_traffic else [1] 
                         ).weight
                 row.append(weight)
             g.append(row)
