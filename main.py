@@ -7,7 +7,7 @@ from graph import Graph
 GENERATE = True
 if(GENERATE):
     n = 5
-    has_traffic = True
+    has_traffic = False
     is_complete = False
-    
-    print(Graph(n, has_traffic, is_complete).matrice)
+    is_oriented = False
+    print(Graph(n, has_traffic, is_complete, is_oriented).matrice)

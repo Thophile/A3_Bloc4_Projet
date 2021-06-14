@@ -3,17 +3,21 @@ import random
 
 class Edge:
     def __init__(self,length, traffic):
-        self.weigth = [length*i for i in traffic]
+        self.weight = [length*i for i in traffic]
 
 class Graph:
-    def __init__(self, n, has_traffic, is_complete):
+    def __init__(self, n, has_traffic, is_complete, is_oriented):
         g = []
-        for _ in range(n):
+        for i in range(n):
             row = []
-            for _ in range(n):
-                row.append(Edge(
-                    random.randrange((1 if is_complete else 0),10),
-                    traffic.generate() if has_traffic else [1]
-                    ).weigth)
+            for j in range(n):
+                if(j<i and not is_oriented):
+                    weight = g[j][i]
+                else:
+                    weight = Edge(
+                        random.randrange((1 if is_complete else 0),10) if i!=j else 0,
+                        traffic.generate() if has_traffic else [1]
+                        ).weight
+                row.append(weight)
             g.append(row)
         self.matrice = g 
