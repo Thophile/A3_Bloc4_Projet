@@ -7,4 +7,4 @@ from graph import Graph
 GENERATE = True
 if(GENERATE):
     n = 5
-    print(Graph(n,True).matrice)
+    print(Graph(n,True,False).matrice)
