@@ -7,4 +7,7 @@ from graph import Graph
 GENERATE = True
 if(GENERATE):
     n = 5
-    print(Graph(n,True,False).matrice)
+    has_traffic = True
+    is_complete = False
+    
+    print(Graph(n, has_traffic, is_complete).matrice)
