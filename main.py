@@ -2,22 +2,18 @@ from graph import Graph
 from pymongo import MongoClient
 import pprint
 
-# CONSTANT
-# is_boolean | has_boolean
-# variable | variable_ou_fonction
-# Class
-
-# Constantes
+# Constants
 GENERATE = True
 STORE = False
 PRINT = True
 
-# Connection a MongoDB
+# Connection to MongoDB
 client = MongoClient('localhost', 27017)
 db = client['DataProject']
 
 
 if(GENERATE):
+
     n = 5
     graphs_to_generate = 1
     has_traffic = False
@@ -29,10 +25,10 @@ if(GENERATE):
         # Generate a graph with parameters
         matrice = Graph(n, has_traffic, is_complete, is_oriented).matrice
         if(PRINT): 
-            # Print de graph using pprint
+            # Print graph using pprint
             pprint.pprint(matrice) 
 
-        # generate the row that will be saved in MongoDB       
+        # Generate the row that will be saved in MongoDB       
         data.append({"n" : n, "has_traffic" : has_traffic, "is_complete" : is_complete, "is_oriented" : is_oriented, "matrice" : matrice})
         
     if(STORE):

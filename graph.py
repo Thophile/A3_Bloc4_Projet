@@ -3,6 +3,7 @@ import random
 
 class Edge:
     def __init__(self,length, traffic):
+        # Generate an array of weight for base weight * traffic coefficient 
         self.weight = [length*i for i in traffic]
 
 class Graph:
@@ -11,12 +12,15 @@ class Graph:
         for i in range(n):
             row = []
             for j in range(n):
+                    # For non oriented graphs use symmetry to generate the bottom left part of the graph
                 if(j<i and not is_oriented):
                     weight = g[j][i]
                 else:
                     weight = Edge(
+                        # Random base weight for the edge, 0 if the edge is a loop
                         random.randrange((1 if is_complete else 0),10) if i!=j else 0,
-                        traffic.generate() if has_traffic else [1]
+                        # Generated traffic data or 1 if traffic is not used
+                        traffic.generate() if has_traffic else [1] 
                         ).weight
                 row.append(weight)
             g.append(row)
