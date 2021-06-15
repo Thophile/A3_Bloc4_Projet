@@ -6,7 +6,7 @@ import math
 class Edge:
     def __init__(self,length, traffic):
         # Generate an array of weight for base weight * traffic coefficient 
-        self.weight = [(length + 30*i) if length!=0 else length for i in traffic ]
+        self.weight = [(length + 30*scale) if length!=0 else length for scale in traffic ]
 
 class Graph:
     def __init__(self, n, has_traffic, is_complete, is_oriented):
