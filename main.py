@@ -18,7 +18,7 @@ if(GENERATE):
     n_max = 7
     n_step = 1
     graphs_to_generate = 2
-    has_traffic = False
+    has_traffic = True
     is_complete = False
     is_oriented = False
 
