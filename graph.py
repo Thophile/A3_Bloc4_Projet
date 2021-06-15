@@ -1,5 +1,7 @@
 from traffic import generate
+from utility import console_clear
 import random
+import math
 
 class Edge:
     def __init__(self,length, traffic):
@@ -10,6 +12,8 @@ class Graph:
     def __init__(self, n, has_traffic, is_complete, is_oriented):
         g = []
         for i in range(n):
+            console_clear()
+            print("Progress : "+str(math.ceil(100*i/n)))
             row = []
             for j in range(n):
                     # For non oriented graphs use symmetry to generate the bottom left part of the graph
