@@ -55,10 +55,11 @@ if(GENERATE):
 if(SEARCH):
     # Search optimum route
     graphs_to_search = 1
-    iter_max = 100
-    level_max = 70
+    iter_max = 300
+    level_max = 10
 
     for graph_id in range(graphs_to_search) :
 
         # Getting a row for verbal param output
         heuristic(graph_id, iter_max, level_max)
+        # best current : 5230

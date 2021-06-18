@@ -11,7 +11,7 @@ graphs = db['graphs']
 graph = []
 tw = []
 
-DEBUG = False
+DEBUG = True
 VERBOSE = True
 
 # Handler method
@@ -29,20 +29,32 @@ def local_search(iter,level_max):
     for _ in range(iter):
         route = random_solution()
         route = optimisation(route, level_max)
-        best_route =  better(best_route, route)
+        routes = []
+        if len(best_route) != 0 : routes.append(best_route) 
+        routes.append(route)
+        best_route =  best(routes)
         if (VERBOSE) :
             print(" Iteration : "+str(_)+" ; Weight : "+str(get_weight(best_route))+ " ; Route : " + str(best_route))
     return best_route
+
 def optimisation(route,level_max):
+    nb = 20
     level = 1
     while level <= level_max:
-        #random n-swap
-        route_2 = perturbation(route, level)
-        route = better(route,route_2)
-        if route == route_2 : 
+        old = list.copy(route)
+        #Generate neighboorhood
+        neighbour = []
+        neighbour.append(route)
+        for _ in range(nb):
+            neighbour.append(perturbation(route, level))
+
+        route = best(neighbour)
+
+        # if no change was made
+        if old != route : 
             level = 1
-            if DEBUG : print("Weight : "+str(get_weight(route)) + "Level : "+str(level))
         else: level += 1
+        if DEBUG : print("Weight : "+str(get_weight(route)) + " Level : "+str(level))
     return route
 def perturbation(route, level = 1):
     # local random n-shift
@@ -53,15 +65,23 @@ def perturbation(route, level = 1):
         r[index_1], r[index_2] = r[index_2], r[index_1]
     return r
 
+
 # Method for graph manipulation
 
-# Return the best route between the two
-def better(best_route,route):
-    if len(best_route) == 0: return route
-    elif len(route) == 0: return best_route
-    else : 
-        return best_route if get_weight(best_route) < get_weight(route) else route
+# Return best route in an array of route
+def best(routes):
+    for _ in range(len(routes)):
+        if len(routes[_]) == 0:
+            routes.pop(_)
+    best = routes[0]
+    best_weight = get_weight(best)
+    for _ in range(len(routes)):
+        cur_weight = get_weight(routes[_])
+        if cur_weight < best_weight:
+            best = routes[_]
+            best_weight = cur_weight
 
+    return best
 
 # Get weight of a route and weight until node i if specified
 def get_weight(route, index=False):
