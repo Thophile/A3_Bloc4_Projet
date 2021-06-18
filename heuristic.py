@@ -11,7 +11,8 @@ graphs = db['graphs']
 graph = []
 tw = []
 
-DEBUG = True
+DEBUG = False
+VERBOSE = True
 
 # Handler method
 def heuristic(graph_id, iter, level):
@@ -29,7 +30,7 @@ def local_search(iter,level_max):
         route = random_solution()
         route = optimisation(route, level_max)
         best_route =  better(best_route, route)
-        if (DEBUG) :
+        if (VERBOSE) :
             print(" Iteration : "+str(_)+" ; Weight : "+str(get_weight(best_route))+ " ; Route : " + str(best_route))
     return best_route
 def optimisation(route,level_max):
