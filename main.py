@@ -55,7 +55,7 @@ if(GENERATE):
 if(SEARCH):
     # Search optimum route
     graphs_to_search = 1
-    iter_max = 20
+    iter_max = 100
     level_max = 50
 
     for graph_id in range(graphs_to_search) :
