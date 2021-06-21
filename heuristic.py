@@ -11,7 +11,7 @@ graphs = db['graphs']
 graph = []
 tw = []
 
-DEBUG = True
+DEBUG = False
 VERBOSE = True
 
 # Handler method
@@ -38,7 +38,7 @@ def local_search(iter,level_max):
     return best_route
 
 def optimisation(route,level_max):
-    nb = 20
+    nb = 50
     level = 1
     while level <= level_max:
         old = list.copy(route)

@@ -5,8 +5,8 @@ import pprint
 import random
 
 # Constants
-FLUSH = False
-GENERATE = False
+FLUSH = True
+GENERATE = True
 PRINT = False
 SEARCH = True
 
@@ -19,8 +19,8 @@ if(FLUSH):
     graphs.delete_many({})
 if(GENERATE):
 
-    n_min = 100
-    n_max = 101
+    n_min = 2000
+    n_max = 2001
     n_step = 1
     graphs_to_generate = 1
     has_traffic = True
@@ -43,6 +43,7 @@ if(GENERATE):
                 # Opening time between 60 and 120 minutes
                 time_window = random.randrange(800,1340 + 15, 15)
 
+
                 # Start time between midnight and midnight - time window
                 start_time = random.randrange(0, 1_440 - time_window + 10, 10)
                 end_time = start_time+time_window
@@ -55,11 +56,11 @@ if(GENERATE):
 if(SEARCH):
     # Search optimum route
     graphs_to_search = 1
-    iter_max = 300
+    iter_max = 3000
     level_max = 10
 
     for graph_id in range(graphs_to_search) :
 
         # Getting a row for verbal param output
         heuristic(graph_id, iter_max, level_max)
-        # best current : 5230
+        # best current : 4500
