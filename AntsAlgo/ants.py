@@ -1,7 +1,13 @@
-import state
+from state import AntState
 
 class Ant:
     def __init__(self):
         self.visited = list()
         self.toVisit = list()
-        self.state = state.IDLE
+        self.state = AntState.IDLE
+
+    def choose(self):
+        pass
+
+    def visit(self):
+        pass
