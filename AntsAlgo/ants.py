@@ -11,13 +11,20 @@ class Ant:
 
     def visit(self, choosed):
         self.visited.append(choosed)
+        self.toVisit.remove(choosed)
 
     def travel(self, graph, phero):
         while self.toVisit:
             self.choose(graph, phero)
 
-    def analyzeTravel:
+    def analyzeTravel():
+        deltasPheromones = list()
+        for i in range(0, len(self.visited)):
+            pass
+
         
+
+
     
     def spittingPheromone(self):
         pass
