@@ -17,9 +17,9 @@ if(GENERATE):
     n_min = 5
     n_max = 7
     n_step = 1
-    graphs_to_generate = 2
-    has_traffic = True
-    is_complete = False
+    graphs_to_generate = 1
+    has_traffic = False
+    is_complete = True
     is_oriented = False
 
     for n in range(n_min, n_max, n_step) :
@@ -30,6 +30,7 @@ if(GENERATE):
             matrice = Graph(n, has_traffic, is_complete, is_oriented).matrice
             if(PRINT): 
                 # Print graph using pprint , using normal print for 3 dimension array
+
                 print(matrice) if has_traffic else pprint.pprint(matrice) 
 
             # Generate the row that will be saved in MongoDB       
