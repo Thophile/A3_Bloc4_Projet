@@ -81,4 +81,4 @@ while True:
         ant.travel(graph, phero)
         ant.toVisit = [1, 2, 3, 4]
         ant.visited = [0]
-        time.sleep(5)
+        #time.sleep(2)

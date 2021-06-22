@@ -9,18 +9,18 @@ class Ant:
         self.state = AntState.IDLE
 
     def choose(self, graph, phero):
-        remaining_total = 0
-        test = [0, 1, 2, 3]
+        remaining_total = {}
         for city in self.toVisit:
             if graph[city][self.visited[len(self.visited)-1]] != 0:
-                remaining_total += pow(phero[city][self.visited[len(self.visited)-1]], ALPHA) * pow(graph[city][self.visited[len(self.visited)-1]], BETA)
-        for city in self.toVisit:
-            if graph[city][self.visited[len(self.visited)-1]] != 0:
-                proba = pow(phero[city][self.visited[len(self.visited)-1]], ALPHA) * pow(graph[city][self.visited[len(self.visited)-1]], BETA) / remaining_total
-                if random.uniform(0, remaining_total) <= proba:
-                    self.visit(city)
-                    return
+                
+                remaining_total[city] = pow(phero[city][self.visited[len(self.visited)-1]], ALPHA) * pow(graph[city][self.visited[len(self.visited)-1]], BETA)
 
+
+        key_list = list(remaining_total.keys())
+        val_list = list(remaining_total.values())
+        chossen_city = random.choices(key_list, weights= val_list, k=1)
+        self.visit(chossen_city[0])
+        return
                 
     def visit(self, choosed):
         self.visited.append(choosed)
@@ -37,8 +37,11 @@ class Ant:
 
     def analyzeTravel(self, graph):
         deltasPheromones = list()
+        weight = 0
         for i in range(0, len(self.visited)-1):
             deltasPheromones.append(CUL/graph[self.visited[i]][self.visited[i+1]])
+            weight += graph[self.visited[i]][self.visited[i+1]]
+        print(weight)
         return deltasPheromones 
         
     def spittingPheromone(self, phero, graph):
