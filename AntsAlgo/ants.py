@@ -28,7 +28,8 @@ class Ant:
         while self.toVisit:
             self.choose(graph, phero)
 
-    def analyzeTravel:
+    def analyzeTravel(self):
+        pass
         
     
     def spittingPheromone(self, phero):
@@ -40,4 +41,4 @@ class Ant:
         pheromone_path = self.analyzeTravel     #Spit new pheromones
         for i in range(len(self.visited)):
             phero[self.visited[i]][self.visited[i+1]] = pheromone_path[i]
-        pass
+        return phero
