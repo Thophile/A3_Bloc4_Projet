@@ -15,6 +15,9 @@ class Ant:
     def travel(self, graph, phero):
         while self.toVisit:
             self.choose(graph, phero)
+
+    def analyzeTravel:
+        
     
     def spittingPheromone(self):
         pass

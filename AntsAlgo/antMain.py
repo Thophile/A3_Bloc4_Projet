@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 nb_fourmis = 5 # number of ants
 ants = list() # list of ants
 strating_node = 0 #  node from where the ants
-iter = 0 # number of interation
+iter = 0 # number of interation (time)
 
 graph = [  
     [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
