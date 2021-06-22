@@ -73,7 +73,8 @@ if(SEARCH):
             size = graphs.find_one({"graph_id" : graph_id}, {"_id":0, "n":1})["n"]
             start = time.time()
         # Getting a row for verbal param output
-        heuristic(graph_id, iter_max, level_max)
+        create_tour(graph_id, iter_max, level_max, vehicules_nb, depot=0)
+        # best current : 4500
         if STATS : 
             duration = time.time() - start
             times.append({"time" : duration, "size" : size})
