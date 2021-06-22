@@ -1,2 +1,2 @@
-ALPHA = 1
-BETA = 0
+ALPHA = 1   #Multiplicateur de phero
+BETA = 1    #Multiplicateur de poids
