@@ -9,5 +9,12 @@ class Ant:
     def choose(self):
         pass
 
-    def visit(self):
+    def visit(self, choosed):
+        self.visited.append(choosed)
+
+    def travel(self, graph, phero):
+        while self.toVisit:
+            self.choose(graph, phero)
+    
+    def spittingPheromone(self):
         pass
