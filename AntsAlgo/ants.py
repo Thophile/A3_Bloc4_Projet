@@ -1,4 +1,4 @@
-from AntsAlgo.const import ALPHA, BETA
+from AntsAlgo.const import ALPHA, BETA, RHO
 from random import random
 from state import AntState
 
@@ -31,5 +31,13 @@ class Ant:
     def analyzeTravel:
         
     
-    def spittingPheromone(self):
+    def spittingPheromone(self, phero):
+        
+        for i in range(len(phero)):         #Evaportaion
+            for j in range(len(phero)):
+                phero[i][j] = phero[i][j] * RHO
+
+        pheromone_path = self.analyzeTravel     #Spit new pheromones
+        for i in range(len(self.visited)):
+            phero[self.visited[i]][self.visited[i+1]] = pheromone_path[i]
         pass
