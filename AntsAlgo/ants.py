@@ -17,9 +17,19 @@ class Ant:
             if graph[len(self.toVisit)][city]:
                 proba = ((phero[len(self.toVisit)][city] ^ ALPHA) * (graph[len(self.toVisit)][city] ^ BETA)) / Remaining_Total
                 if random(0, Remaining_Total) > proba:
-                    pass
+                    self.visit(self, city)
                     
         
 
-    def visit(self):
+    def visit(self, choosed):
+        self.visited.append(choosed)
+
+    def travel(self, graph, phero):
+        while self.toVisit:
+            self.choose(graph, phero)
+
+    def analyzeTravel:
+        
+    
+    def spittingPheromone(self):
         pass
