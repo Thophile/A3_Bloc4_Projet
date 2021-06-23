@@ -80,5 +80,6 @@ for _ in range(5000):
         #time.sleep(2)
     print("----------------------------------------------------")
     for ant in ants :
-        ant.spittingPheromone(phero, graph)
+        phero = ant.spittingPheromone(phero, graph)
+    print (phero)
         
