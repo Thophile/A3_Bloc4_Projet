@@ -7,8 +7,8 @@ import random
 import time
 
 # Constants
-FLUSH = False
-GENERATE = False
+FLUSH = True
+GENERATE = True
 PRINT = False
 SEARCH = True
 STATS = True
@@ -23,9 +23,9 @@ if(FLUSH):
 if(GENERATE):
 
     n_min = 10
-    n_max = 21
+    n_max = 15
     n_step = 1
-    graph_per_size = 10
+    graph_per_size = 5
     has_traffic = True
     is_complete = True
     is_oriented = False
