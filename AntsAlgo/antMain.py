@@ -1,7 +1,6 @@
 from ants import Ant
 import pprint
 import numpy as np
-import networkx as nx
 import matplotlib.pyplot as plt
 import time
 
@@ -72,15 +71,14 @@ plt.show()
 """
 toVisit = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
-for ant in ants:
-    ant.toVisit = [1, 2, 3, 4]
-    ant.visited = [0]
-
-while True:
+for _ in range(5000):
 
     for ant in ants:
-        ant.travel(graph, phero)
         ant.toVisit = [1, 2, 3, 4]
         ant.visited = [0]
+        ant.travel(graph, phero)
         #time.sleep(2)
+    print("----------------------------------------------------")
+    for ant in ants :
+        ant.spittingPheromone(phero, graph)
         

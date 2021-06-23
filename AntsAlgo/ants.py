@@ -13,7 +13,7 @@ class Ant:
         for city in self.toVisit:
             if graph[city][self.visited[len(self.visited)-1]] != 0:
                 
-                remaining_total[city] = pow(phero[city][self.visited[len(self.visited)-1]], ALPHA) * pow(graph[city][self.visited[len(self.visited)-1]], BETA)
+                remaining_total[city] = 1 + (pow(phero[city][self.visited[len(self.visited)-1]], ALPHA) * pow(graph[city][self.visited[len(self.visited)-1]], BETA))
 
 
         key_list = list(remaining_total.keys())
@@ -29,10 +29,10 @@ class Ant:
     def travel(self, graph, phero):
         while self.toVisit:
             self.choose(graph, phero)
-        print(self.visited)
-        print(phero)
-        print("----------------------------------------------------")
-        self.spittingPheromone(phero, graph)
+        #print(self.visited)
+        #print("----------------------------------------------------")
+        #print(phero)
+        #self.spittingPheromone(phero, graph)
 
 
     def analyzeTravel(self, graph):
@@ -42,7 +42,7 @@ class Ant:
             travail_sum += graph[self.visited[i]][self.visited[i+1]]
         for i in range(0, len(self.visited)-1):
             deltasPheromones.append(CUL/travail_sum)
-            print(deltasPheromones)
+        #print(deltasPheromones)
         print(travail_sum)
         return deltasPheromones 
         
