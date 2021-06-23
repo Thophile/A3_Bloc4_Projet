@@ -37,11 +37,13 @@ class Ant:
 
     def analyzeTravel(self, graph):
         deltasPheromones = list()
-        weight = 0
+        travail_sum = 0
+        for i in range(len(self.visited)-1):
+            travail_sum += graph[self.visited[i]][self.visited[i+1]]
         for i in range(0, len(self.visited)-1):
-            deltasPheromones.append(CUL/graph[self.visited[i]][self.visited[i+1]])
-            weight += graph[self.visited[i]][self.visited[i+1]]
-        print(weight)
+            deltasPheromones.append(CUL/travail_sum)
+            print(deltasPheromones)
+        print(travail_sum)
         return deltasPheromones 
         
     def spittingPheromone(self, phero, graph):
@@ -50,6 +52,6 @@ class Ant:
             for j in range(len(phero)):
                 phero[i][j] = phero[i][j] * RHO
         pheromone_path = self.analyzeTravel(graph)   #Spit new pheromones
-        for i in range(len(self.visited)-1):
-            phero[self.visited[i]][self.visited[i+1]] = pheromone_path[i]
+        for i in range(0, len(self.visited)-1):
+            phero[self.visited[i]][self.visited[i+1]] += pheromone_path[i]
         return phero

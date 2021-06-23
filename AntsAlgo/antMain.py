@@ -77,8 +77,10 @@ for ant in ants:
     ant.visited = [0]
 
 while True:
+
     for ant in ants:
         ant.travel(graph, phero)
         ant.toVisit = [1, 2, 3, 4]
         ant.visited = [0]
         #time.sleep(2)
+        
