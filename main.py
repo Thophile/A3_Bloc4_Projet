@@ -1,17 +1,18 @@
 from graph import Graph 
-from heuristic import create_tour
+from tour import create_tour
 from pymongo import MongoClient
 import matplotlib.pyplot as plt
 import pprint
 import random
 import time
+from localsearch import *
 
 # Constants
 FLUSH = True
 GENERATE = True
 PRINT = False
 SEARCH = True
-STATS = True
+STATS = False
 
 # Connection to MongoDB
 client = MongoClient('localhost', 27017)
@@ -67,7 +68,7 @@ if(SEARCH):
     vehicules_nb = 4
     print(create_tour(graph_id, iter_max, level_max, vehicules_nb, depot=0))
 
-    
+
 if STATS:
 
     iter_max = 10
