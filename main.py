@@ -60,35 +60,45 @@ if(GENERATE):
 
 if(SEARCH):
     # Search optimum route
-    graphs_ids = graphs.find_one({}, {"_id":0, "graph_id":1}, sort=[("graph_id", -1)])["graph_id"]+1
-    print(graphs_ids)
+    graph_id = 1
+    
+    iter_max = 10
+    level_max = 10
+    vehicules_nb = 4
+    print(create_tour(graph_id, iter_max, level_max, vehicules_nb, depot=0))
+
+    
+if STATS:
+
     iter_max = 10
     level_max = 10
     vehicules_nb = 4
 
-    if STATS : 
-        times = []
+    # param run
+
+
+    graphs_ids = graphs.find_one({}, {"_id":0, "graph_id":1}, sort=[("graph_id", -1)])["graph_id"]+1
+    print(graphs_ids)
+    times = []
     for graph_id in range(graphs_ids) :
-        if STATS : 
-            size = graphs.find_one({"graph_id" : graph_id}, {"_id":0, "n":1})["n"]
-            start = time.time()
+        size = graphs.find_one({"graph_id" : graph_id}, {"_id":0, "n":1})["n"]
+        start = time.time()
         # Getting a row for verbal param output
         create_tour(graph_id, iter_max, level_max, vehicules_nb, depot=0)
         # best current : 4500
-        if STATS : 
-            duration = time.time() - start
-            times.append({"time" : duration, "size" : size})
-    if STATS :
-        sizes = []
-        avg_times = []
-        tmp = {}
-        for entry in times:
-            if not entry["size"] in tmp : tmp[entry["size"]] = []
-            tmp[entry["size"]].append(entry["time"])
-        for key, value in tmp.items():
-            sizes.append(key)
-            avg_times.append(sum(value)/len(value))
-        plt.plot(sizes, avg_times)
-        plt.ylabel('time')
-        plt.xlabel('graph size')
-        plt.show()
+        duration = time.time() - start
+        times.append({"time" : duration, "size" : size})
+    
+    sizes = []
+    avg_times = []
+    tmp = {}
+    for entry in times :
+        if not entry["size"] in tmp : tmp[entry["size"]] = []
+        tmp[entry["size"]].append(entry["time"])
+    for key, value in tmp.items() :
+        sizes.append(key)
+        avg_times.append(sum(value)/len(value))
+    plt.plot(sizes, avg_times)
+    plt.ylabel('time')
+    plt.xlabel('graph size')
+    plt.show()
