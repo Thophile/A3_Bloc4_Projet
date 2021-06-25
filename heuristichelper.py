@@ -15,7 +15,7 @@ def quality(params, graph_info, solution):
     min = s_min(graph_info["n"],tour_nb)
     max = s_max(params,graph_info["n"],tour_nb)
     
-    return (max - weight) / (max - min)
+    return 100 * (max - weight) / (max - min)
 
 def s_min(n, nb_tour):
     nb_edge = n + nb_tour - 1
