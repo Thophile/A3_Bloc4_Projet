@@ -98,7 +98,7 @@ if STATS:
 
             start = time.time()
             # Getting a row for verbal param output
-            create_tour(params, graph_info["graph_id"], iter_max, level_max, vehicules_nb, depot=0)
+            create_tour(params, graph_info, iter_max, level_max, vehicules_nb, depot=0)
             # best current : 4500
             duration = time.time() - start
             times.append({"time" : duration, "size" : size})
