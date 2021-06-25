@@ -73,6 +73,7 @@ if STATS:
     iter_max = 30
     level_max = 12
     vehicules_nb = 4
+    max_size = 50
 
     # param run
     for _ in range(4):
@@ -96,6 +97,7 @@ if STATS:
         for e in graphs_infos :
             graph_info = e["_id"]
             size = graph_info["n"]
+            if size > max_size : continue
 
             start = time.time()
             # Getting a row for verbal param output
