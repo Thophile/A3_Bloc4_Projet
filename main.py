@@ -92,16 +92,19 @@ if STATS:
         )
         
         times = []
+        qualities = []
         for e in graphs_infos :
             graph_info = e["_id"]
             size = graph_info["n"]
 
             start = time.time()
             # Getting a row for verbal param output
-            create_tour(params, graph_info, iter_max, level_max, vehicules_nb, depot=0)
+            solution, solution_quality = create_tour(params, graph_info, iter_max, level_max, vehicules_nb, 0, local_search)
             # best current : 4500
             duration = time.time() - start
-            times.append({"time" : duration, "size" : size})
+            times.append({"time" : solution_quality, "size" : size})
+            qualities.append({"quality" : solution_quality, "size" : size})
+
         
         sizes = []
         avg_times = []
