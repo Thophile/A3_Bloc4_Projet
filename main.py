@@ -10,7 +10,7 @@ from localsearch import *
 # Constants
 FLUSH = False
 GENERATE = False
-PRINT = False
+PRINT = True
 SEARCH = False
 STATS = True
 
@@ -106,6 +106,7 @@ if STATS:
             duration = time.time() - start
             times.append({"time" : solution_quality, "size" : size})
             qualities.append({"quality" : solution_quality, "size" : size})
+            if PRINT : print (solution,solution_quality,duration)
 
         
         sizes = []
