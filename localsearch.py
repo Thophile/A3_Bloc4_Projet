@@ -3,20 +3,20 @@ from heuristichelper import *
 DEBUG = False
 
 # Local search version
-def local_search(graph, tw, tour, iter, level_max):
+def local_search(params, graph, tw, tour, iter, level_max):
     best_route = []
     for _ in range(iter):
         route = random_solution(tour)
-        route = optimisation(graph, tw, route, level_max)
+        route = optimisation(params, graph, tw, route, level_max)
         routes = []
         if len(best_route) != 0 : routes.append(best_route) 
         routes.append(route)
-        best_route =  best(graph, tw, routes)
+        best_route =  best(params, graph, tw, routes)
         if (DEBUG) :
-            print(" Iteration : "+str(_)+" ; Weight : "+str(get_weight(graph, tw, best_route))+ " ; Route : " + str(best_route))
+            print(" Iteration : "+str(_)+" ; Weight : "+str(get_weight(params, graph, tw, best_route))+ " ; Route : " + str(best_route))
     return best_route
 
-def optimisation(graph, tw, route, level_max):
+def optimisation(params, graph, tw, route, level_max):
     nb = 50
     level = 1
     while level <= level_max:
@@ -27,13 +27,13 @@ def optimisation(graph, tw, route, level_max):
         for _ in range(nb):
             neighbour.append(perturbation(route, level))
 
-        route = best(graph, tw,neighbour)
+        route = best(params, graph, tw,neighbour)
 
         # if no change was made
         if old != route : 
             level = 1
         else: level += 1
-        if DEBUG : print("Weight : "+str(get_weight(graph, tw, route)) + " Level : "+str(level))
+        if DEBUG : print("Weight : "+str(get_weight(params, graph, tw, route)) + " Level : "+str(level))
     return route
 def perturbation(route, level = 1):
     # local random n-shift
