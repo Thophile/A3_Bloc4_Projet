@@ -15,10 +15,11 @@ tw = []
 DEBUG = False
 
 # Handler method
-def create_tour(params, graph_id, iter, level, vehicules_nb, depot=0, callback = None):
+def create_tour(params, graph_info, iter, level, vehicules_nb, depot=0, callback = None):
     global graph, tw
-    graph = [i["row"] for i in graphs.find({"graph_id" : graph_id})]
-    tw = [{"start_time" : i["start_time"], "end_time" : i["end_time"]} for i in graphs.find({"graph_id" : graph_id})]
+    rows = graphs.find({"graph_id" : graph_info["graph_id"], "n": graph_info["n"]})
+    graph = [i["row"] for i in rows]
+    tw = [{"start_time" : i["start_time"], "end_time" : i["end_time"]} for i in rows]
 
     tours = []
     for _ in range(vehicules_nb):

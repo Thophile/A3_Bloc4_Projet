@@ -70,8 +70,8 @@ if(SEARCH):
 
 if STATS:
 
-    iter_max = 10
-    level_max = 10
+    iter_max = 120
+    level_max = 12
     vehicules_nb = 4
 
     # param run
