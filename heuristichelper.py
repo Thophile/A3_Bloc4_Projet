@@ -9,15 +9,25 @@ def extract_field(array,field):
     
 
 # Quality evaluator for a route
-def quality(params, graph_info, weight):
-    min = 35*graph_info["n"]
-    if params["has_traffic"]:
-        
-        max = 3900*(graph_info["n"] -1)
-    else:
-        max = 3360*(graph_info["n"] -1)
+def quality(params, graph_info, solution):
+    weight = sum(extract_field(solution,"weight"))
+    tour_nb = len(solution)
+    min = s_min(graph_info["n"],tour_nb)
+    max = s_max(params,graph_info["n"],tour_nb)
     
     return (max - weight) / (max - min)
+
+def s_min(n, nb_tour):
+    nb_edge = n + nb_tour - 1
+    min_weight = 35 
+    return nb_edge * min_weight
+def s_max(params, n, nb_tour):
+    nb_edge = n + nb_tour - 1
+    max_weight = 510
+    # max waiting time
+    if params["has_traffic"] : max_weight += 1440
+    return nb_edge * max_weight
+
 
 # Return best route in an array of route
 def best(params, graph, tw, routes):
