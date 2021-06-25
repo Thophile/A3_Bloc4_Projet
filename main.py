@@ -8,11 +8,11 @@ import time
 from localsearch import *
 
 # Constants
-FLUSH = True
-GENERATE = True
+FLUSH = False
+GENERATE = False
 PRINT = False
-SEARCH = True
-STATS = False
+SEARCH = False
+STATS = True
 
 # Connection to MongoDB
 client = MongoClient('localhost', 27017)
@@ -28,15 +28,14 @@ if(GENERATE):
     n_step = 1
     graph_per_size = 5
     has_traffic = True
-    is_complete = True
-    is_oriented = False
+    is_oriented = True
 
     graph_id = 0
     for n in range(n_min, n_max, n_step) :
         for _ in range(graph_per_size):
             
             # Generate a graph with parameters
-            matrice = Graph(n, has_traffic, is_complete, is_oriented).matrice
+            matrice = Graph(n, has_traffic, is_oriented).matrice
             if(PRINT): 
                 # Print graph using pprint , using normal print for 3 dimension array
                 print(matrice) if has_traffic else pprint.pprint(matrice) 
@@ -54,7 +53,7 @@ if(GENERATE):
                 end_time = start_time+time_window
 
                 # Save generated data into graphs collection
-                graphs.insert_one( {"graph_id" : graph_id , "node" : node, "start_time" : start_time, "end_time" : end_time, "n" : n, "has_traffic" : has_traffic, "is_complete" : is_complete, "is_oriented" : is_oriented, "row" : matrice[node]})
+                graphs.insert_one( {"graph_id" : graph_id , "node" : node, "start_time" : start_time, "end_time" : end_time, "n" : n, "has_traffic" : has_traffic, "is_oriented" : is_oriented, "row" : matrice[node]})
             graph_id += 1
     # Rows check
     print("Rows : "+str(graphs.count_documents({})))

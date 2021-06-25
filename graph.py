@@ -9,7 +9,7 @@ class Edge:
         self.weight = [(length + 30*scale) if length!=0 else length for scale in traffic ]
 
 class Graph:
-    def __init__(self, n, has_traffic, is_complete, is_oriented):
+    def __init__(self, n, has_traffic, is_oriented):
         g = []
         for i in range(n):
             console_clear()
@@ -23,7 +23,7 @@ class Graph:
                     weight = Edge(
                         # Random base weight for the edge, range start at 1 if the graphs is complete,
                         # weight is 0 if the edge is a loop
-                        random.randrange((5 if is_complete else 0),240, 5) if i!=j else 0,
+                        random.randrange(5, 240, 5) if i!=j else 0,
                         # Generated traffic data or 1 if traffic is not used
                         generate() if has_traffic else [0] 
                         ).weight
