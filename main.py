@@ -104,7 +104,7 @@ if STATS:
             solution, solution_quality = create_tour(params, graph_info, iter_max, level_max, vehicules_nb, 0, local_search)
             # best current : 4500
             duration = time.time() - start
-            times.append({"time" : solution_quality, "size" : size})
+            times.append({"time" : duration, "size" : size})
             qualities.append({"quality" : solution_quality, "size" : size})
             if PRINT : print (solution,solution_quality,duration)
 
