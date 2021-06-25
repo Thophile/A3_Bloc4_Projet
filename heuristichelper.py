@@ -2,18 +2,23 @@ import random
 
 # Method for graph manipulation
 
-# Quality evaluator for a route
+# solutions total weight getter
+def extract_field(array,field):
+    for _ in array:
+        yield _[field]
+    
 
-def quality(params, graph_info, graph, tw, route):
+# Quality evaluator for a route
+def quality(params, graph_info, weight):
     min = 35*graph_info["n"]
     if params["has_traffic"]:
         
         max = 3900*(graph_info["n"] -1)
     else:
         max = 3360*(graph_info["n"] -1)
-    w = get_weight(params, graph, tw, route)
-    return (max - w) / (max - min)
     
+    return (max - weight) / (max - min)
+
 # Return best route in an array of route
 def best(params, graph, tw, routes):
     for _ in range(len(routes)):
