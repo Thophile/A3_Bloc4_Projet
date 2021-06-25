@@ -53,18 +53,18 @@ def get_weight(params, graph, tw, route, index=False, depot = 0):
         arv_time =    weight%1440
 
         # get time windows of next node
-        tw = get_tw(tw, clone[ (i+1) % len(clone) ] )
+        window = get_tw(tw, clone[ (i+1) % len(clone) ] )
 
         # initialize waiting times
         nd_time = wo_time = 0
 
         # you are late, wait for next day starting
-        if arv_time > tw["end_time"] : 
+        if arv_time > window["end_time"] : 
             nd_time = 1440 - arv_time
             # update arrival time to midnight
             arv_time = 0
         #you are early, wait for opening
-        if arv_time < tw["start_time"] : wo_time = tw["start_time"] - arv_time
+        if arv_time < window["start_time"] : wo_time = window["start_time"] - arv_time
 
         weight += nd_time + wo_time
     return weight
