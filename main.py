@@ -74,6 +74,7 @@ if STATS:
     level_max = 12
     vehicules_nb = 4
     max_size = 100
+    fig, (time_ax, quality_ax) = plt.subplots(2)    
 
     # param run
     for _ in range(4):
@@ -108,7 +109,7 @@ if STATS:
             qualities.append({"quality" : solution_quality, "size" : size})
             if PRINT : print (solution,solution_quality,duration)
 
-        fig, axs = plt.subplots(2)     
+         
         
         sizes = []
         avg_times = []
@@ -119,10 +120,9 @@ if STATS:
         for key, value in tmp.items() :
             sizes.append(key)
             avg_times.append(sum(value)/len(value))
-        axs[0].plot(sizes, avg_times, label = str(params))
-        axs[0].ylabel('Time (s)')
-        axs[0].xlabel('Graph size')
-        axs[0].legend()
+        time_ax.plot(sizes, avg_times, label = str(params))
+        time_ax.set(xlabel='Graph size', ylabel='Time (s)')
+        time_ax.legend()
 
         avg_qualities = []
         tmp = {}
@@ -131,11 +131,12 @@ if STATS:
             tmp[entry["size"]].append(entry["quality"])
         for key, value in tmp.items() :
             avg_qualities.append(sum(value)/len(value))
-        axs[1].plot(sizes, avg_qualities, label = str(params))
-        axs[1].ylabel('Quality (%)')
-        axs[1].xlabel('Graph size')
-        axs[1].legend()
+        quality_ax.plot(sizes, avg_qualities, label = str(params))
+        quality_ax.set(xlabel='Graph size', ylabel='Quality (%)')
+        quality_ax.legend()
         
-    fig.subtitle("Execution time and quality in function of graph size for a combination of parameters")
-    
+    fig.suptitle("Execution time and quality in function of graph size for a combination of parameters")
+    fig.add_axes(quality_ax)
+    fig.add_axes(time_ax)
     fig.show()
+    input()
