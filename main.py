@@ -75,30 +75,45 @@ if STATS:
     vehicules_nb = 4
 
     # param run
+    for _ in range(4):
+        # Using binary to generate boolean dict to test each combination
+        b = "{0:b}".format(_)
+        if len(b) < 2 : b = '0'+ b
+        params = {"has_traffic" : b[0] == '1', "is_oriented" : b[1] == '1'}
 
 
-    graphs_ids = graphs.find_one({}, {"_id":0, "graph_id":1}, sort=[("graph_id", -1)])["graph_id"]+1
-    print(graphs_ids)
-    times = []
-    for graph_id in range(graphs_ids) :
-        size = graphs.find_one({"graph_id" : graph_id}, {"_id":0, "n":1})["n"]
-        start = time.time()
-        # Getting a row for verbal param output
-        create_tour(graph_id, iter_max, level_max, vehicules_nb, depot=0)
-        # best current : 4500
-        duration = time.time() - start
-        times.append({"time" : duration, "size" : size})
-    
-    sizes = []
-    avg_times = []
-    tmp = {}
-    for entry in times :
-        if not entry["size"] in tmp : tmp[entry["size"]] = []
-        tmp[entry["size"]].append(entry["time"])
-    for key, value in tmp.items() :
-        sizes.append(key)
-        avg_times.append(sum(value)/len(value))
-    plt.plot(sizes, avg_times)
+        # Get all graphs id and size matching the params
+        graphs_infos = graphs.aggregate( 
+            [
+                {"$match" : params},
+                {"$group": { "_id": { 'graph_id': "$graph_id", 'n': "$n" } } },
+                {"$sort" : {"_id.n":1}}
+            ]
+        )
+        
+        times = []
+        for e in graphs_infos :
+            graph_info = e["_id"]
+            size = graph_info["n"]
+
+            start = time.time()
+            # Getting a row for verbal param output
+            create_tour(params, graph_info["graph_id"], iter_max, level_max, vehicules_nb, depot=0)
+            # best current : 4500
+            duration = time.time() - start
+            times.append({"time" : duration, "size" : size})
+        
+        sizes = []
+        avg_times = []
+        tmp = {}
+        for entry in times :
+            if not entry["size"] in tmp : tmp[entry["size"]] = []
+            tmp[entry["size"]].append(entry["time"])
+        for key, value in tmp.items() :
+            sizes.append(key)
+            avg_times.append(sum(value)/len(value))
+        plt.plot(sizes, avg_times, label = str(_))
     plt.ylabel('time')
     plt.xlabel('graph size')
+    plt.title("Execution time in function of graph size for a combination of parameters")
     plt.show()

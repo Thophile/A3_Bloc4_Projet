@@ -15,7 +15,7 @@ tw = []
 DEBUG = False
 
 # Handler method
-def create_tour(graph_id, iter, level, vehicules_nb, depot=0, callback = None):
+def create_tour(params, graph_id, iter, level, vehicules_nb, depot=0, callback = None):
     global graph, tw
     graph = [i["row"] for i in graphs.find({"graph_id" : graph_id})]
     tw = [{"start_time" : i["start_time"], "end_time" : i["end_time"]} for i in graphs.find({"graph_id" : graph_id})]
@@ -41,7 +41,7 @@ def create_tour(graph_id, iter, level, vehicules_nb, depot=0, callback = None):
     if(callback):
         solutions = []
         for _ in range(vehicules_nb):
-            opt_tour = callback(graph, tw, tours[_], iter, level)
+            opt_tour = callback(params, graph, tw, tours[_], iter, level)
             solutions.append({"weight": get_weight(graph,opt_tour), "tour" : opt_tour})
         return solutions
     else:
