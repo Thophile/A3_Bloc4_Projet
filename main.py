@@ -70,7 +70,7 @@ if(SEARCH):
 
 if STATS:
 
-    iter_max = 120
+    iter_max = 30
     level_max = 12
     vehicules_nb = 4
 

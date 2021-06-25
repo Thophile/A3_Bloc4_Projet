@@ -9,17 +9,17 @@ client = MongoClient('localhost', 27017)
 db = client['DataProject']
 graphs = db['graphs']
 
-graph = []
-tw = []
-
 DEBUG = False
 
 # Handler method
 def create_tour(params, graph_info, iter, level, vehicules_nb, depot=0, callback = None):
-    global graph, tw
+    graph = []
+    tw = []
     rows = graphs.find({"has_traffic": params["has_traffic"], "is_oriented": params["is_oriented"], "graph_id" : graph_info["graph_id"], "n": graph_info["n"]})
-    graph = [i["row"] for i in rows]
-    tw = [{"start_time" : i["start_time"], "end_time" : i["end_time"]} for i in rows]
+    for i in rows:
+        graph.append(i["row"])
+        tw.append({"start_time" : i["start_time"], "end_time" : i["end_time"]})
+    
 
     tours = []
     for _ in range(vehicules_nb):
