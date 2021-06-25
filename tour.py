@@ -17,7 +17,7 @@ DEBUG = False
 # Handler method
 def create_tour(params, graph_info, iter, level, vehicules_nb, depot=0, callback = None):
     global graph, tw
-    rows = graphs.find({"graph_id" : graph_info["graph_id"], "n": graph_info["n"]})
+    rows = graphs.find({"has_traffic": params["has_traffic"], "is_oriented": params["is_oriented"], "graph_id" : graph_info["graph_id"], "n": graph_info["n"]})
     graph = [i["row"] for i in rows]
     tw = [{"start_time" : i["start_time"], "end_time" : i["end_time"]} for i in rows]
 
@@ -40,11 +40,11 @@ def create_tour(params, graph_info, iter, level, vehicules_nb, depot=0, callback
         print("Graph loaded & Tours generated : ")
         pprint.pprint(tours)
     if(callback):
-        solutions = []
+        solution = []
         for _ in range(vehicules_nb):
             opt_tour = callback(params, graph, tw, tours[_], iter, level)
-            solutions.append({"weight": get_weight(graph,opt_tour), "tour" : opt_tour})
-        return solutions
+            solution.append({"weight": get_weight(params,graph,tw,opt_tour), "tour" : opt_tour})
+        return solution, quality(params,graph_info,sum(extract_field(solution,"weight")))
     else:
         return tours
 
