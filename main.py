@@ -108,6 +108,9 @@ if STATS:
             qualities.append({"quality" : solution_quality, "size" : size})
             if PRINT : print (solution,solution_quality,duration)
 
+        fig, axs = plt.subplots(2)
+        fig.suptitle('Vertically stacked subplots')
+        
         
         sizes = []
         avg_times = []
@@ -118,9 +121,23 @@ if STATS:
         for key, value in tmp.items() :
             sizes.append(key)
             avg_times.append(sum(value)/len(value))
-        plt.plot(sizes, avg_times, label = str(params))
-    plt.ylabel('time')
-    plt.xlabel('graph size')
-    plt.title("Execution time in function of graph size for a combination of parameters")
-    plt.legend()
-    plt.show()
+        axs[0].plot(sizes, avg_times, label = str(params))
+        axs[0].ylabel('Time (s)')
+        axs[0].xlabel('Graph size')
+        axs[0].legend()
+
+        avg_qualities = []
+        tmp = {}
+        for entry in qualities :
+            if not entry["size"] in tmp : tmp[entry["size"]] = []
+            tmp[entry["size"]].append(entry["quality"])
+        for key, value in tmp.items() :
+            avg_qualities.append(sum(value)/len(value))
+        axs[1].plot(sizes, avg_qualities, label = str(params))
+        axs[1].ylabel('Quality (%)')
+        axs[1].xlabel('Graph size')
+        axs[1].legend()
+        
+    fig.title("Execution time and quality in function of graph size for a combination of parameters")
+    
+    fig.show()
