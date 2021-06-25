@@ -112,8 +112,9 @@ if STATS:
         for key, value in tmp.items() :
             sizes.append(key)
             avg_times.append(sum(value)/len(value))
-        plt.plot(sizes, avg_times, label = str(_))
+        plt.plot(sizes, avg_times, label = str(params))
     plt.ylabel('time')
     plt.xlabel('graph size')
     plt.title("Execution time in function of graph size for a combination of parameters")
+    plt.legend()
     plt.show()
