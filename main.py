@@ -73,7 +73,7 @@ if STATS:
     iter_max = 30
     level_max = 12
     vehicules_nb = 4
-    max_size = 50
+    max_size = 100
 
     # param run
     for _ in range(4):
@@ -108,9 +108,7 @@ if STATS:
             qualities.append({"quality" : solution_quality, "size" : size})
             if PRINT : print (solution,solution_quality,duration)
 
-        fig, axs = plt.subplots(2)
-        fig.suptitle('Vertically stacked subplots')
-        
+        fig, axs = plt.subplots(2)     
         
         sizes = []
         avg_times = []
@@ -138,6 +136,6 @@ if STATS:
         axs[1].xlabel('Graph size')
         axs[1].legend()
         
-    fig.title("Execution time and quality in function of graph size for a combination of parameters")
+    fig.subtitle("Execution time and quality in function of graph size for a combination of parameters")
     
     fig.show()
