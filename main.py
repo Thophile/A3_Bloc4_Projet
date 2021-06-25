@@ -24,14 +24,14 @@ if(FLUSH):
 if(GENERATE):
 
     n_min = 10
-    n_max = 15
+    n_max = 100
     n_step = 1
     graph_per_size = 5
     has_traffic = True
     is_oriented = True
 
     graph_id = 0
-    for n in range(n_min, n_max, n_step) :
+    for n in range(n_min, n_max-n_step, n_step) :
         for _ in range(graph_per_size):
             
             # Generate a graph with parameters
