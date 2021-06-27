@@ -72,12 +72,20 @@ plt.show()
 """
 toVisit = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
-for _ in range(50000):
+tw = [
+    {"start": 120, "end": 420},
+    {"start": 820, "end": 1220},
+    {"start": 350, "end": 560},
+    {"start": 690, "end": 920},
+    {"start": 0, "end": 60},
+]
+
+for _ in range(5000):
 
     for ant in ants:
         ant.toVisit = [1, 2, 3, 4]
         ant.visited = [0]
-        ant.travel(graph, phero)
+        ant.travel(graph, phero, tw)
         #time.sleep(2)
     print("----------------------------------------------------")
     for i in range(len(phero)):         #Evaportaion
