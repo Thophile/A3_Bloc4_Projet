@@ -1,4 +1,4 @@
-ALPHA = 2  #Multiplicateur de phero
-BETA = -2   #Multiplicateur de poids
-RHO = 0.94  #constante d'evaporation
-CUL = 400    #constante du cul
+ALPHA = 1.39  #Multiplicateur de phero
+BETA = -1.25   #Multiplicateur de poids
+RHO = 0.688  #constante d'evaporation
+CUL = 62.5   #constante du cul

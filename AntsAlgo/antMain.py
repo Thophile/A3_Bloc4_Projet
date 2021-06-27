@@ -1,10 +1,11 @@
+from const import RHO
 from ants import Ant
 import pprint
-import numpy as np
-import matplotlib.pyplot as plt
+#import numpy as np
+#import matplotlib.pyplot as plt
 import time
 
-nb_fourmis = 5 # number of ants
+nb_fourmis = 10 # number of ants
 ants = list() # list of ants
 strating_node = 0 #  node from where the ants
 iter = 0 # number of interation (time)
@@ -54,7 +55,7 @@ phero = [] # the amount of pheromones in each node of the graph
 for i in range(len(graph)):
     node = []
     for i in range(len(graph)):
-        node.append(1)
+        node.append(10)
     phero.append(node)
 
 #Generate the ants
@@ -71,7 +72,7 @@ plt.show()
 """
 toVisit = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
-for _ in range(5000):
+for _ in range(50000):
 
     for ant in ants:
         ant.toVisit = [1, 2, 3, 4]
@@ -79,6 +80,9 @@ for _ in range(5000):
         ant.travel(graph, phero)
         #time.sleep(2)
     print("----------------------------------------------------")
+    for i in range(len(phero)):         #Evaportaion
+        for j in range(len(phero)):
+            phero[i][j] = phero[i][j] * RHO
     for ant in ants :
         phero = ant.spittingPheromone(phero, graph)
     print (phero)

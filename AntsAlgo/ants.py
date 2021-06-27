@@ -13,7 +13,7 @@ class Ant:
         for city in self.toVisit:
             if graph[city][self.visited[len(self.visited)-1]] != 0:
                 
-                remaining_total[city] = 1 + (pow(phero[city][self.visited[len(self.visited)-1]], ALPHA) * pow(graph[city][self.visited[len(self.visited)-1]], BETA))
+                remaining_total[city] = 0.0001 + (pow(phero[city][self.visited[len(self.visited)-1]], ALPHA) * pow(graph[city][self.visited[len(self.visited)-1]], BETA))
 
 
         key_list = list(remaining_total.keys())
@@ -44,13 +44,10 @@ class Ant:
             deltasPheromones.append(CUL/travail_sum)
         #print(deltasPheromones)
         print(travail_sum)
+        print(self.visited)
         return deltasPheromones 
         
     def spittingPheromone(self, phero, graph):
-        
-        for i in range(len(phero)):         #Evaportaion
-            for j in range(len(phero)):
-                phero[i][j] = phero[i][j] * RHO
         pheromone_path = self.analyzeTravel(graph)   #Spit new pheromones
         for i in range(0, len(self.visited)-1):
             phero[self.visited[i]][self.visited[i+1]] += pheromone_path[i]
