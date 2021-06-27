@@ -1,3 +1,5 @@
+from timeWindow import generate_Tw
+from graph import Graph
 from const import RHO
 from ants import Ant
 import pprint
@@ -8,7 +10,12 @@ import time
 nb_fourmis = 10 # number of ants
 ants = list() # list of ants
 strating_node = 0 #  node from where the ants
-iter = 0 # number of interation (time)
+iter = 5000 # number of interation (time)
+
+n = 5000
+has_traffic = True
+is_complete = True
+is_oriented = False
 
 graph = [
     [0, 170, 130, 20, 180],
@@ -34,27 +41,11 @@ graph = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0]
 ]# the grap which represent the map
 """
-dic = {
-    0:"0",
-    1:"1",
-    2:"2",
-    3:"3",
-    4:"4",
-    5:"5",
-    6:"6",
-    7:"7",
-    8:"8",
-    9:"9",
-    10:"10",
-    11:"11",
-    12:"12",
-    13:"13"
-}
 
 phero = [] # the amount of pheromones in each node of the graph
-for i in range(len(graph)):
+for i in range(n):
     node = []
-    for i in range(len(graph)):
+    for i in range(n):
         node.append(10)
     phero.append(node)
 
@@ -70,28 +61,26 @@ G = nx.relabel_nodes(G, dic)
 nx.draw(G, with_labels=True, font_size=8)
 plt.show()
 """
-toVisit = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
-tw = [
-    {"start": 120, "end": 420},
-    {"start": 820, "end": 1220},
-    {"start": 350, "end": 560},
-    {"start": 690, "end": 920},
-    {"start": 0, "end": 60},
-]
+toVisit = []
+for i in range(1, n):
+    toVisit.append(i)
 
-for _ in range(5000):
 
+tw = generate_Tw(n)
+matrice = Graph(n, has_traffic, is_complete, is_oriented).matrice
+print("Graph generated")
+for _ in range(iter):
+    print(_, "/", iter)
     for ant in ants:
         ant.toVisit = [1, 2, 3, 4]
-        ant.visited = [0]
-        ant.travel(graph, phero, tw)
-        #time.sleep(2)
+        ant.visited = [strating_node]
+        ant.travel(matrice, phero, tw)
     print("----------------------------------------------------")
     for i in range(len(phero)):         #Evaportaion
         for j in range(len(phero)):
             phero[i][j] = phero[i][j] * RHO
     for ant in ants :
-        phero = ant.spittingPheromone(phero, graph)
-    print (phero)
+        phero = ant.spittingPheromone(phero, matrice)
+
         

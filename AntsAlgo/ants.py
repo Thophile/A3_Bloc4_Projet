@@ -12,8 +12,8 @@ class Ant:
     def choose(self, graph, phero):
         remaining_total = {}
         for city in self.toVisit:
-            if graph[self.visited[len(self.visited)-1]][city] != 0:
-                remaining_total[city] = 0.00001 + (pow(phero[self.visited[len(self.visited)-1]][city], ALPHA) * pow(graph[self.visited[len(self.visited)-1]][city], BETA))
+            if graph[self.visited[len(self.visited)-1]][city][(self.time%1440)//60] != 0:
+                remaining_total[city] = 0.00001 + (pow(phero[self.visited[len(self.visited)-1]][city], ALPHA) * pow(graph[self.visited[len(self.visited)-1]][city][(self.time%1440)//60], BETA))
 
 
         key_list = list(remaining_total.keys())
@@ -22,21 +22,20 @@ class Ant:
         self.visit(chossen_city[0], graph)
         return
 
+
     def deliver(self, tw):
         waiting_time = 0
         city = self.visited[len(self.visited)-1]
         if tw[city]["start"] >= self.time % 1440 or tw[city]["end"] <= self.time:
-            print('waiting')
             waiting_time = (tw[city]["start"] - self.time) % 1440
         elif tw[city]["end"] >= self.time % 1440 and tw[city]["start"] <= self.time % 1440:
-            print('not waiting')
             waiting_time = 0
         self.time += waiting_time
 
 
                 
     def visit(self, choosed, graph):
-        self.time += graph[self.visited[len(self.visited)-1]][choosed]
+        self.time += graph[self.visited[len(self.visited)-1]][choosed][(self.time%1440)//60]
         self.visited.append(choosed)
         self.toVisit.remove(choosed)
         
@@ -63,7 +62,6 @@ class Ant:
             deltasPheromones.append(CUL/self.time)
         #print(deltasPheromones)
         print(self.time)
-        print(self.visited)
         return deltasPheromones 
         
     def spittingPheromone(self, phero, graph):
