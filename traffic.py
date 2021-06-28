@@ -20,5 +20,5 @@ def generate():
     # Base weighted array from offical french stats
     # traffic = [1, 1, 1, 1, 1, 1, 1, 2, 7, 8, 3, 2, 1, 1, 1, 2, 3, 5, 7, 5, 1, 1, 1, 1, 1]
 
-    # Return array of slowth coeficient [1-10]
+    # Return array of slowth coeficient [0-10]
     return traffic
