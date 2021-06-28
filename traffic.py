@@ -5,7 +5,7 @@ import math
 def generate():
     m_a = 1503.43402
     m_b = -556561.2208
-    m_max = m_a*60*11+m_b
+    m_max = m_a*60*12+m_b
 
     e_a = -1507.393614
     e_b = 1862163.515
