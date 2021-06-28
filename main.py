@@ -6,6 +6,7 @@ import pprint
 import random
 import time
 from localsearch import *
+from ants import *
 
 # Constants
 FLUSH = False
@@ -13,6 +14,7 @@ GENERATE = False
 PRINT = True
 SEARCH = False
 STATS = True
+algo = local_search
 
 # Connection to MongoDB
 client = MongoClient('localhost', 27017)
@@ -66,7 +68,7 @@ if(SEARCH):
     iter_max = 10
     level_max = 10
     vehicules_nb = 4
-    print(create_tour(graph_id, iter_max, level_max, vehicules_nb, depot=0))
+    print(create_tour(graph_id, iter_max, level_max, vehicules_nb, 0, algo))
 
 
 if STATS:
@@ -103,7 +105,7 @@ if STATS:
 
             start = time.time()
             # Getting a row for verbal param output
-            solution, solution_quality = create_tour(params, graph_info, iter_max, level_max, vehicules_nb, 0, local_search)
+            solution, solution_quality = create_tour(params, graph_info, iter_max, level_max, vehicules_nb, 0, algo)
             # best current : 4500
             duration = time.time() - start
             times.append({"time" : duration, "size" : size})
