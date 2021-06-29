@@ -7,7 +7,12 @@ import pprint
 import random
 import time
 from localsearch import *
+<<<<<<< HEAD
 from AntsAlgo.antMain import *
+=======
+from ants import *
+from tabou import *
+>>>>>>> c40fad684c3e5d3fee5f72eb87e8ef034657f2a7
 
 # Constants
 FLUSH = False
