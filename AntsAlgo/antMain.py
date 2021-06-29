@@ -73,7 +73,7 @@ print("Graph generated")
 for _ in range(iter):
     print(_, "/", iter)
     for ant in ants:
-        ant.toVisit = [1, 2, 3, 4]
+        ant.toVisit = toVisit
         ant.visited = [strating_node]
         ant.travel(matrice, phero, tw)
     print("----------------------------------------------------")
