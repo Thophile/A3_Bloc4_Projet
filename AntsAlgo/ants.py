@@ -26,9 +26,9 @@ class Ant:
     def deliver(self, tw):
         waiting_time = 0
         city = self.visited[len(self.visited)-1]
-        if tw[city]["start"] >= self.time % 1440 or tw[city]["end"] <= self.time:
+        if tw[city]["start_time"] >= self.time % 1440 or tw[city]["end_time"] <= self.time:
             waiting_time = (tw[city]["start"] - self.time) % 1440
-        elif tw[city]["end"] >= self.time % 1440 and tw[city]["start"] <= self.time % 1440:
+        elif tw[city]["end_time"] >= self.time % 1440 and tw[city]["start_time"] <= self.time % 1440:
             waiting_time = 0
         self.time += waiting_time
 
