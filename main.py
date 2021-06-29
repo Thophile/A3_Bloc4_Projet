@@ -11,7 +11,7 @@ from ants import *
 # Constants
 FLUSH = False
 GENERATE = False
-PRINT = True
+PRINT = False
 SEARCH = False
 STATS = True
 algo = local_search
@@ -26,8 +26,8 @@ if(FLUSH):
 if(GENERATE):
 
     n_min = 10
-    n_max = 100
-    n_step = 1
+    n_max = 500
+    n_step = 10
     graph_per_size = 5
     has_traffic = True
     is_oriented = True
@@ -76,7 +76,7 @@ if STATS:
     iter_max = 30
     level_max = 12
     vehicules_nb = 4
-    max_size = 100
+    max_size = 500
     fig, (time_ax, quality_ax) = plt.subplots(2)    
 
     # param run
