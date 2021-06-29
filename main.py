@@ -1,3 +1,4 @@
+from AntsAlgo.antMain import antAlgo
 from graph import Graph 
 from tour import create_tour
 from pymongo import MongoClient
@@ -6,7 +7,12 @@ import pprint
 import random
 import time
 from localsearch import *
+<<<<<<< HEAD
+from AntsAlgo.antMain import *
+=======
 from ants import *
+from tabou import *
+>>>>>>> c40fad684c3e5d3fee5f72eb87e8ef034657f2a7
 
 # Constants
 FLUSH = False
@@ -14,7 +20,7 @@ GENERATE = False
 PRINT = False
 SEARCH = False
 STATS = True
-algo = local_search
+algo = antAlgo
 
 # Connection to MongoDB
 client = MongoClient('localhost', 27017)

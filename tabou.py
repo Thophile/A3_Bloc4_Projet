@@ -9,7 +9,7 @@ import random
  #   ]
 
 tw = []
-graph = []
+tour = []
 poids = []
 #traffic = [1, 1, 1, 1, 1, 1, 1, 2, 7, 8, 3, 2, 1, 1, 1, 2, 3, 5, 7, 5, 1, 1, 1, 1, 1]
 
@@ -23,15 +23,15 @@ best_weight = 999999999999
 
 
 
-def start_algo(iter, matrice, n):
-    global route
+def start_tabou(params, graph, tw_list, list_ville, iter, level_max):
     global poids
-    global graph
+    global tour
+    global tw
 
-    poids = matrice
+    poids = graph
     
-    graph = list(range(n))
-    generate_Tw(n)
+    tour = list_ville
+    tw = tw_list
 
     route = random_solution()
     for _ in range(iter):
@@ -64,7 +64,7 @@ def tabou_research(current_route):
 
 def random_solution():
     route = []
-    possible = list(range(len(graph)))
+    possible = list(range(len(tour)))
 
     route.append(possible.pop(0))
 
