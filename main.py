@@ -7,6 +7,7 @@ import random
 import time
 from localsearch import *
 from ants import *
+from tabou import *
 
 # Constants
 FLUSH = False
