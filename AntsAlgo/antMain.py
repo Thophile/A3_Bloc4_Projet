@@ -16,7 +16,7 @@ def antAlgo(param, graph, tw, tour, iter, level):
             node.append(10)
         phero.append(node)
     toVisit = []
-    for i in range(1, n):
+    for i in range(1, len(graph) - 1):
         toVisit.append(i)
     for _ in range(iter):
         print(_, "/", iter)
@@ -30,3 +30,7 @@ def antAlgo(param, graph, tw, tour, iter, level):
                 phero[i][j] = phero[i][j] * RHO
         for ant in ants :
             phero = ant.spittingPheromone(phero, graph)
+    sol = [0]
+    for i in range((len(phero) - 1)):
+        sol.apprend(i.indexof(max(i)))
+    return sol
