@@ -36,8 +36,13 @@ class Ant:
                 
     def visit(self, choosed, graph):
         self.time += graph[self.visited[len(self.visited)-1]][choosed][(self.time%1440)//60]
+        last = None
+        if self.toVisit == [0]:
+            last = True
         self.visited.append(choosed)
         self.toVisit.remove(choosed)
+        if self.toVisit == [] and not(last):
+            self.toVisit.append(0)
         
 
     def travel(self, graph, phero, tw):
