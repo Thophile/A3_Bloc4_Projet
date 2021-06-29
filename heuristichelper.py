@@ -19,11 +19,11 @@ def quality(params, graph_info, solution):
 
 def s_min(n, nb_tour):
     nb_edge = n + nb_tour - 1
-    min_weight = 35 
+    min_weight = 5 
     return nb_edge * min_weight
 def s_max(params, n, nb_tour):
     nb_edge = n + nb_tour - 1
-    max_weight = 510
+    max_weight = 540
     # max waiting time
     if params["has_traffic"] : max_weight += 1440
     return nb_edge * max_weight
