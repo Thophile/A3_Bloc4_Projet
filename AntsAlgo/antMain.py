@@ -15,11 +15,9 @@ def antAlgo(param, graph, tw, tour, iter, level):
         for i in range(len(graph) - 1):
             node.append(10)
         phero.append(node)
-    toVisit = []
-    for i in range(1, len(graph) - 1):
-        toVisit.append(i)
-    for _ in range(iter):
-        print(_, "/", iter)
+    isok = False
+    while not(isok):
+        verif = 0
         for ant in ants:
             ant.toVisit = tour
             ant.visited = [strating_node]
@@ -30,7 +28,17 @@ def antAlgo(param, graph, tw, tour, iter, level):
                 phero[i][j] = phero[i][j] * RHO
         for ant in ants :
             phero = ant.spittingPheromone(phero, graph)
-    sol = [0]
-    for i in range((len(phero) - 1)):
-        sol.apprend(i.indexof(max(i)))
-    return sol
+        firstant = ants[0]
+        same = False
+        for ant in ants:
+            if firstant.visited != ant.visited:
+                same = False
+            else:
+                same = True
+        if same:
+            verif += 1
+        if verif >= 5:
+            isok = True
+    return ants[0].visited
+
+    
