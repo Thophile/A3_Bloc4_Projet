@@ -26,9 +26,9 @@ if(FLUSH):
     graphs.delete_many({})
 if(GENERATE):
 
-    n_min = 10
+    n_min = 5
     n_max = 500
-    n_step = 10
+    n_step = 15
     graph_per_size = 5
     has_traffic = True
     is_oriented = True
@@ -48,7 +48,7 @@ if(GENERATE):
             for node in range(len(matrice)) :       
 
                 
-                # Opening time between 60 and 120 minutes
+                # Opening time between 13h and 22h minutes
                 time_window = random.randrange(800,1340 + 15, 15)
 
 
@@ -65,82 +65,85 @@ if(GENERATE):
 if(SEARCH):
     # Search optimum route
     graph_id = 1
-    
-    iter_max = 10
-    level_max = 10
+    params = {"has_traffic" : True, "is_oriented" : True}
+    iter_max = 30
+    level_max = 12
     vehicules_nb = 4
-    print(create_tour(graph_id, iter_max, level_max, vehicules_nb, 0, algo))
+    print(create_tour(params, graph_id, iter_max, level_max, vehicules_nb, 0, algo))
 
 
 if STATS:
 
     iter_max = 30
     level_max = 12
-    vehicules_nb = 4
+    vehicules_max_nb = 5
+    
     max_size = 500
-    fig, (time_ax, quality_ax) = plt.subplots(2)    
+    for vehicules_nb in range(1,vehicules_max_nb + 1):
 
-    # param run
-    for _ in range(4):
-        # Using binary to generate boolean dict to test each combination
-        b = "{0:b}".format(_)
-        if len(b) < 2 : b = '0'+ b
-        params = {"has_traffic" : b[0] == '1', "is_oriented" : b[1] == '1'}
+        fig, (time_ax, quality_ax) = plt.subplots(2)    
+
+        # param run
+        for _ in range(4):
+            # Using binary to generate boolean dict to test each combination
+            b = "{0:b}".format(_)
+            if len(b) < 2 : b = '0'+ b
+            params = {"has_traffic" : b[0] == '1', "is_oriented" : b[1] == '1'}
 
 
-        # Get all graphs id and size matching the params
-        graphs_infos = graphs.aggregate( 
-            [
-                {"$match" : params},
-                {"$group": { "_id": { 'graph_id': "$graph_id", 'n': "$n" } } },
-                {"$sort" : {"_id.n":1}}
-            ]
-        )
-        
-        times = []
-        qualities = []
-        for e in graphs_infos :
-            graph_info = e["_id"]
-            size = graph_info["n"]
-            if size > max_size : continue
+            # Get all graphs id and size matching the params
+            graphs_infos = graphs.aggregate( 
+                [
+                    {"$match" : params},
+                    {"$group": { "_id": { 'graph_id': "$graph_id", 'n': "$n" } } },
+                    {"$sort" : {"_id.n":1}}
+                ]
+            )
+            
+            times = []
+            qualities = []
+            for e in graphs_infos :
+                graph_info = e["_id"]
+                size = graph_info["n"]
+                if size > max_size : continue
 
-            start = time.time()
-            # Getting a row for verbal param output
-            solution, solution_quality = create_tour(params, graph_info, iter_max, level_max, vehicules_nb, 0, algo)
-            # best current : 4500
-            duration = time.time() - start
-            times.append({"time" : duration, "size" : size})
-            qualities.append({"quality" : solution_quality, "size" : size})
-            if PRINT : print (solution,solution_quality,duration)
+                start = time.time()
+                # Getting a row for verbal param output
+                solution, solution_quality = create_tour(params, graph_info, iter_max, level_max, vehicules_nb, 0, algo)
+                # best current : 4500
+                duration = time.time() - start
+                times.append({"time" : duration, "size" : size})
+                qualities.append({"quality" : solution_quality, "size" : size})
+                if PRINT : print (solution,solution_quality,duration)
 
-         
-        
-        sizes = []
-        avg_times = []
-        tmp = {}
-        for entry in times :
-            if not entry["size"] in tmp : tmp[entry["size"]] = []
-            tmp[entry["size"]].append(entry["time"])
-        for key, value in tmp.items() :
-            sizes.append(key)
-            avg_times.append(sum(value)/len(value))
-        time_ax.plot(sizes, avg_times, label = str(params))
-        time_ax.set(xlabel='Graph size', ylabel='Time (s)')
-        time_ax.legend()
+            
+            
+            sizes = []
+            avg_times = []
+            tmp = {}
+            for entry in times :
+                if not entry["size"] in tmp : tmp[entry["size"]] = []
+                tmp[entry["size"]].append(entry["time"])
+            for key, value in tmp.items() :
+                sizes.append(key)
+                avg_times.append(sum(value)/len(value))
+            time_ax.plot(sizes, avg_times, label = str(params))
+            time_ax.set(xlabel='Graph size', ylabel='Time (s)')
+            time_ax.legend()
 
-        avg_qualities = []
-        tmp = {}
-        for entry in qualities :
-            if not entry["size"] in tmp : tmp[entry["size"]] = []
-            tmp[entry["size"]].append(entry["quality"])
-        for key, value in tmp.items() :
-            avg_qualities.append(sum(value)/len(value))
-        quality_ax.plot(sizes, avg_qualities, label = str(params))
-        quality_ax.set(xlabel='Graph size', ylabel='Quality (%)')
-        quality_ax.legend()
-        
-    fig.suptitle("Execution time and quality in function of graph size for a combination of parameters")
-    fig.add_axes(quality_ax)
-    fig.add_axes(time_ax)
-    fig.show()
-    input()
+            avg_qualities = []
+            tmp = {}
+            for entry in qualities :
+                if not entry["size"] in tmp : tmp[entry["size"]] = []
+                tmp[entry["size"]].append(entry["quality"])
+            for key, value in tmp.items() :
+                avg_qualities.append(sum(value)/len(value))
+            quality_ax.plot(sizes, avg_qualities, label = str(params))
+            quality_ax.set(xlabel='Graph size', ylabel='Quality (%)')
+            quality_ax.legend()
+            
+        fig.suptitle("Execution time and quality in function of graph size for a combination of parameters")
+        fig.add_axes(quality_ax)
+        fig.add_axes(time_ax)
+        fig.show()
+        input()
