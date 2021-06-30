@@ -19,7 +19,7 @@ def antAlgo(param, graph, tw, tour, iter_max, level):
     
     verif = 0
     it= 0
-    while True and it < 300:
+    while True and it < 150:
         it += 1
         for ant in ants:
             ant.toVisit = list.copy(tour)
