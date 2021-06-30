@@ -10,10 +10,10 @@ from localsearch import *
 from AntsAlgo.antMain import *
 
 # Constants
-FLUSH = False
-GENERATE = False
+FLUSH = True
+GENERATE = True
 PRINT = False
-SEARCH = False
+SEARCH = True
 STATS = True
 algo = antAlgo
 
@@ -31,7 +31,7 @@ if(GENERATE):
     n_step = 15
     graph_per_size = 5
     has_traffic = True
-    is_oriented = True
+    is_oriented = False
 
     graph_id = 0
     for n in range(n_min, n_max-n_step, n_step) :
@@ -64,8 +64,8 @@ if(GENERATE):
 
 if(SEARCH):
     # Search optimum route
-    graph_id = 1
-    params = {"has_traffic" : True, "is_oriented" : True}
+    graph_id = 0
+    params = {"has_traffic" : True, "is_oriented" : False}
     iter_max = 30
     level_max = 12
     vehicules_nb = 4

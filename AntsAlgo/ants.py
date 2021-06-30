@@ -9,17 +9,17 @@ class Ant:
         self.state = AntState.IDLE
         self.time = 0
 
-    def choose(self, graph, phero):
+    def choose(self, graph, phero, param):
         remaining_total = {}
         for city in self.toVisit:
-            if graph[self.visited[len(self.visited)-1]][city][(self.time%1440)//60] != 0:
-                remaining_total[city] = 0.00001 + (pow(phero[self.visited[len(self.visited)-1]][city], ALPHA) * pow(graph[self.visited[len(self.visited)-1]][city][(self.time%1440)//60], BETA))
+            if graph[self.visited[len(self.visited)-1]][city][(self.time%1440)//60 if param["has_traffic"] else 0] != 0:
+                remaining_total[city] = 0.00001 + (pow(phero[self.visited[len(self.visited)-1]][city], ALPHA) * pow(graph[self.visited[len(self.visited)-1]][city][(self.time%1440)//60 if param["has_traffic"] else 0], BETA))
 
 
         key_list = list(remaining_total.keys())
         val_list = list(remaining_total.values())
         chossen_city = random.choices(key_list, weights= val_list, k=1)
-        self.visit(chossen_city[0], graph)
+        self.visit(chossen_city[0], graph, param)
         return
 
 
@@ -34,8 +34,8 @@ class Ant:
 
 
                 
-    def visit(self, choosed, graph):
-        self.time += graph[self.visited[len(self.visited)-1]][choosed][(self.time%1440)//60]
+    def visit(self, choosed, graph, param):
+        self.time += graph[self.visited[len(self.visited)-1]][choosed][(self.time%1440)//60 if param["has_traffic"] else 0]
         last = None
         if self.toVisit == [0]:
             last = True
@@ -45,11 +45,11 @@ class Ant:
             self.toVisit.append(0)
         
 
-    def travel(self, graph, phero, tw):
+    def travel(self, graph, phero, tw, param):
         self.time = 0
         while self.toVisit:
             print(self.time)
-            self.choose(graph, phero)
+            self.choose(graph, phero, param)
             self.deliver(tw)
         #print(self.visited)
         #print("----------------------------------------------------")
@@ -69,7 +69,7 @@ class Ant:
         print(self.time)
         return deltasPheromones 
         
-    def spittingPheromone(self, phero, graph):
+    def spittingPheromone(self, phero, graph, param):
         pheromone_path = self.analyzeTravel(graph)   #Spit new pheromones
         for i in range(0, len(self.visited)-1):
             phero[self.visited[i]][self.visited[i+1]] += pheromone_path[i]
