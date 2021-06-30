@@ -10,11 +10,11 @@ from localsearch import *
 from AntsAlgo.antMain import *
 
 # Constants
-FLUSH = False
-GENERATE = False
+FLUSH = True
+GENERATE = True
 PRINT = False
 SEARCH = False
-STATS = True
+STATS = False
 algo = antAlgo
 
 # Connection to MongoDB
@@ -26,12 +26,12 @@ if(FLUSH):
     graphs.delete_many({})
 if(GENERATE):
 
-    n_min = 5
-    n_max = 500
+    n_min = 10
+    n_max = 400
     n_step = 15
     graph_per_size = 5
-    has_traffic = True
-    is_oriented = True
+    has_traffic = False
+    is_oriented = False
 
     graph_id = 0
     for n in range(n_min, n_max-n_step, n_step) :
