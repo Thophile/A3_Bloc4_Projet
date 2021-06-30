@@ -45,19 +45,13 @@ def best_neighbour(params, route,tw, graph):
 
 
     for i in range(len(route)):
-        if i != 0:
-            neighbour = list(route)
-            if i == (len(route)-1):
-                neighbour[i] = neighbour[1]
-                neighbour[1] = route[i]
-            else :
-                neighbour[i] = neighbour[i+1]
-                neighbour[i+1] = route[i]
-            list_neighbours.append(neighbour)
+        neighbour = list.copy(route)
+        neighbour[i], neighbour[(i+1)%len(neighbour)] = neighbour[(i+1)%len(neighbour)], neighbour[i]
+        list_neighbours.append(neighbour)
     
 
-    for i in list_neighbours:
-        list_weight_neighbour.append(get_weight(params, graph, tw, i, index=False, depot = 0))
+    for neighbour in list_neighbours:
+        list_weight_neighbour.append(get_weight(params, graph, tw, neighbour, index=False, depot = 0))
 
     best_neighbour = list_neighbours[list_weight_neighbour.index(min(list_weight_neighbour))]
     while(True):

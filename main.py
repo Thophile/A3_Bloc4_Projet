@@ -10,12 +10,12 @@ from AntsAlgo.antMain import *
 from tabou import *
 
 # Constants
-FLUSH = False
-GENERATE = False
-PRINT = False
-SEARCH = True
-STATS = False
-algo = start_tabou
+FLUSH = True
+GENERATE = True
+PRINT = True
+SEARCH = False
+STATS = True
+algo = local_search
 
 # Connection to MongoDB
 client = MongoClient('localhost', 27017)
@@ -23,13 +23,13 @@ db = client['DataProject']
 graphs = db['graphs']
 
 if(FLUSH):
-    graphs.delete_many({})
+    graphs.delete_many({"n":{"$lte":500}})
 if(GENERATE):
 
     n_min = 10
     n_max = 400
-    n_step = 15
-    graph_per_size = 5
+    n_step = 20
+    graph_per_size = 4
 
     for _ in range(4):
         # Using binary to generate boolean dict to test each combination
@@ -83,7 +83,7 @@ if STATS:
     level_max = 12
     vehicules_max_nb = 5
     
-    max_size = 500
+    max_size = 400
     min_size = 0
     for vehicules_nb in range(1,vehicules_max_nb + 1):
 
