@@ -1,4 +1,5 @@
-from AntsAlgo import ALPHA, BETA, RHO, CUL, AntState
+from AntsAlgo.const import ALPHA, BETA, RHO, CUL
+from AntsAlgo.state import AntState
 import random
 
 class Ant:

@@ -1,5 +1,6 @@
 from graph import Graph
-from AntsAlgo import RHO,Ant
+from AntsAlgo.const import RHO
+from AntsAlgo.ants import Ant
 
 
 def antAlgo(param, graph, tw, tour, iter, level):
