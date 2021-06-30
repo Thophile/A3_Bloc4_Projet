@@ -15,7 +15,7 @@ GENERATE = False
 PRINT = False
 SEARCH = True
 STATS = False
-algo = start_tabou
+algo = antAlgo
 
 # Connection to MongoDB
 client = MongoClient('localhost', 27017)
@@ -33,34 +33,40 @@ if(GENERATE):
     has_traffic = True
     is_oriented = False
 
-    for n in range(n_min, n_max+n_step, n_step) :
-        graph_id = 0
-        for _ in range(graph_per_size):
-            
-            # Generate a graph with parameters
-            matrice = Graph(n, has_traffic, is_oriented).matrice
-            if(PRINT): 
-                # Print graph using pprint , using normal print for 3 dimension array
+    for _ in range(4):
+        # Using binary to generate boolean dict to test each combination
+        b = "{0:b}".format(_)
+        if len(b) < 2 : b = '0'+ b
+        params = {"has_traffic" : b[0] == '1', "is_oriented" : b[1] == '1'}
 
-                print(matrice) if has_traffic else pprint.pprint(matrice) 
-
-            # Generate the row that will be saved in MongoDB 
-            for node in range(len(matrice)) :       
-
+        for n in range(n_min, n_max+n_step, n_step) :
+            graph_id = 0
+            for _ in range(graph_per_size):
                 
-                # Opening time between 13h and 22h minutes
-                time_window = random.randrange(800,1340 + 15, 15)
+                # Generate a graph with parameters
+                matrice = Graph(n, has_traffic, is_oriented).matrice
+                if(PRINT): 
+                    # Print graph using pprint , using normal print for 3 dimension array
+
+                    print(matrice) if has_traffic else pprint.pprint(matrice) 
+
+                # Generate the row that will be saved in MongoDB 
+                for node in range(len(matrice)) :       
+
+                    
+                    # Opening time between 13h and 22h minutes
+                    time_window = random.randrange(800,1340 + 15, 15)
 
 
-                # Start time between midnight and midnight - time window
-                start_time = random.randrange(0, 1_440 - time_window + 10, 10)
-                end_time = start_time+time_window
+                    # Start time between midnight and midnight - time window
+                    start_time = random.randrange(0, 1_440 - time_window + 10, 10)
+                    end_time = start_time+time_window
 
-                # Save generated data into graphs collection
-                graphs.insert_one( {"graph_id" : graph_id , "node" : node, "start_time" : start_time, "end_time" : end_time, "n" : n, "has_traffic" : has_traffic, "is_oriented" : is_oriented, "row" : matrice[node]})
-            graph_id += 1
-    # Rows check
-    print("Rows : "+str(graphs.count_documents({})))
+                    # Save generated data into graphs collection
+                    graphs.insert_one( {"graph_id" : graph_id , "node" : node, "start_time" : start_time, "end_time" : end_time, "n" : n, "has_traffic" : has_traffic, "is_oriented" : is_oriented, "row" : matrice[node]})
+                graph_id += 1
+        # Rows check
+        print("Rows : "+str(graphs.count_documents({})))
 
 if(SEARCH):
     # Search optimum route
