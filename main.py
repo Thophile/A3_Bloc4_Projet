@@ -9,8 +9,8 @@ from localsearch import *
 from AntsAlgo.antMain import *
 
 # Constants
-FLUSH = True
-GENERATE = True
+FLUSH = False
+GENERATE = False
 PRINT = False
 SEARCH = True
 STATS = False
