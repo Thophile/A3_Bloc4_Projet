@@ -46,7 +46,6 @@ if(GENERATE):
 
                 # Generate the row that will be saved in MongoDB 
                 for node in range(len(matrice)) :       
-
                     
                     # Opening time between 13h and 22h minutes
                     time_window = random.randrange(800,1340 + 15, 15)
