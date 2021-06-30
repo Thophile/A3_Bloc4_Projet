@@ -44,6 +44,9 @@ def antAlgo(param, graph, tw, tour, iter_max, level):
         else : verif = 0
         if verif >= 3:
             break
-    return ants[0].visited
+    solution = list.copy(ants[0].visited)
+    solution.pop(0)
+    solution.pop(len(solution)-1)
+    return solution
 
     

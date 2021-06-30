@@ -15,7 +15,11 @@ def start_tabou(params, graph, tw, tour, iter, level_max):
         best_route, best_route_voisin = tabou_research(params, route, best_route, tw, graph)
        
         route = best_route_voisin
-    return best_route
+
+    solution = list.copy(best_route)
+    solution.pop(0)
+    solution.pop(len(solution)-1)
+    return solution
 
 
 def tabou_research(params, current_route, best_route, tw , graph):
