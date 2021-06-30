@@ -84,6 +84,7 @@ if STATS:
     vehicules_max_nb = 5
     
     max_size = 500
+    min_size = 0
     for vehicules_nb in range(1,vehicules_max_nb + 1):
 
         fig, (time_ax, quality_ax) = plt.subplots(2)    
@@ -110,7 +111,7 @@ if STATS:
             for e in graphs_infos :
                 graph_info = e["_id"]
                 size = graph_info["n"]
-                if size > max_size : continue
+                if size > max_size or size < min_size : continue
 
                 start = time.time()
                 # Getting a row for verbal param output
