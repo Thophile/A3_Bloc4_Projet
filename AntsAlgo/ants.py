@@ -1,6 +1,5 @@
-from const import ALPHA, BETA, RHO, CUL
+from AntsAlgo import ALPHA, BETA, RHO, CUL, AntState
 import random
-from state import AntState
 
 class Ant:
     def __init__(self):

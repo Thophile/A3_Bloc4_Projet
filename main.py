@@ -14,7 +14,7 @@ FLUSH = True
 GENERATE = True
 PRINT = False
 SEARCH = True
-STATS = True
+STATS = False
 algo = antAlgo
 
 # Connection to MongoDB
@@ -26,8 +26,8 @@ if(FLUSH):
     graphs.delete_many({})
 if(GENERATE):
 
-    n_min = 5
-    n_max = 500
+    n_min = 10
+    n_max = 400
     n_step = 15
     graph_per_size = 5
     has_traffic = True
