@@ -15,7 +15,7 @@ GENERATE = True
 PRINT = True
 SEARCH = False
 STATS = True
-algo = local_search
+algo = start_tabou
 
 # Connection to MongoDB
 client = MongoClient('localhost', 27017)
@@ -43,10 +43,6 @@ if(GENERATE):
                 
                 # Generate a graph with parameters
                 matrice = Graph(n, params["has_traffic"], params["is_oriented"]).matrice
-                if(PRINT): 
-                    # Print graph using pprint , using normal print for 3 dimension array
-
-                    print(matrice) if params["has_traffic"] else pprint.pprint(matrice) 
 
                 # Generate the row that will be saved in MongoDB 
                 for node in range(len(matrice)) :       
