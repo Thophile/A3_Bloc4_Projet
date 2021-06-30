@@ -1,7 +1,7 @@
 from graph import Graph
 from AntsAlgo.const import RHO
 from AntsAlgo.ants import Ant
-DEBUG = True
+DEBUG = False
 
 def antAlgo(param, graph, tw, tour, iter_max, level):
     nb_fourmis = 10 # number of ants
