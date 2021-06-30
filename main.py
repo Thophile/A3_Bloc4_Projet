@@ -7,6 +7,7 @@ import random
 import time
 from localsearch import *
 from AntsAlgo.antMain import *
+from tabou import *
 
 # Constants
 FLUSH = False
@@ -14,7 +15,7 @@ GENERATE = False
 PRINT = False
 SEARCH = True
 STATS = False
-algo = antAlgo
+algo = start_tabou
 
 # Connection to MongoDB
 client = MongoClient('localhost', 27017)

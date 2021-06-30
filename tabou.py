@@ -1,39 +1,39 @@
 import random
 from heuristichelper import *
-
+DEBUG = False
 tw = []
 TABOU_SIZE = 30
 tabou_list = []
 
 
 def start_tabou(params, graph, tw, tour, iter, level_max):
-
+    best_route = []
     route = random_solution(tour)
     for _ in range(iter):
-        print('iter : '  + str(_))
-        print("route actuelle" + str(route))
-        tabou_list, best_weight, best_route, best_route_voisin = tabou_research(params, route,tw, graph)
+        if DEBUG :
+            print(_, route)
+        best_route, best_route_voisin = tabou_research(params, route, best_route, tw, graph)
        
-        print("----------------------------------------------------------------------------------------------")
         route = best_route_voisin
-    return tabou_list, best_weight, best_route, tw
+    return best_route
 
 
-def tabou_research(params, current_route,tw , graph):
+def tabou_research(params, current_route, best_route, tw , graph):
     best_weight = 9999999999
 
     best_route_voisin = best_neighbour(params, current_route,tw, graph)
-    print("route voisin" + str(best_route_voisin))
-    print("tabou list" + str(tabou_list))
+    if DEBUG : 
+        print("route voisin" + str(best_route_voisin))
+        print("tabou list" + str(tabou_list))
     
     if(check_tabou(best_route_voisin)):
         update_tabou(best_route_voisin)
         current_weight = get_weight(params, graph, tw, best_route_voisin, index=False, depot = 0)
-        print("poids" + str(current_weight))
+        if DEBUG : print("poids" + str(current_weight))
         if(current_weight < best_weight):
             best_weight = current_weight
             best_route = best_route_voisin
-    return tabou_list, best_weight, best_route, best_route_voisin
+    return best_route, best_route_voisin
 
 
 
@@ -43,7 +43,7 @@ def best_neighbour(params, route,tw, graph):
     best_list_route = [] 
 
 
-    for i in route:
+    for i in range(len(route)):
         if i != 0:
             neighbour = list(route)
             if i == (len(route)-1):
