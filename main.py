@@ -30,8 +30,6 @@ if(GENERATE):
     n_max = 400
     n_step = 15
     graph_per_size = 5
-    has_traffic = True
-    is_oriented = False
 
     for _ in range(4):
         # Using binary to generate boolean dict to test each combination
@@ -65,8 +63,8 @@ if(GENERATE):
                     # Save generated data into graphs collection
                     graphs.insert_one( {"graph_id" : graph_id , "node" : node, "start_time" : start_time, "end_time" : end_time, "n" : n, "has_traffic" : params["has_traffic"], "is_oriented" : params["is_oriented"], "row" : matrice[node]})
                 graph_id += 1
-        # Rows check
-        print("Rows : "+str(graphs.count_documents({})))
+    # Rows check
+    print("Rows : "+str(graphs.count_documents({})))
 
 if(SEARCH):
     # Search optimum route

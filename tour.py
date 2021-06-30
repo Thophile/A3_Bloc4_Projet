@@ -39,6 +39,7 @@ def create_tour(params, graph_info, iter, level, vehicules_nb, depot=0, callback
     if DEBUG : 
         print("Graph loaded & Tours generated : ")
         pprint.pprint(tours)
+        
     if(callback):
         solution = []
         for _ in range(vehicules_nb):
