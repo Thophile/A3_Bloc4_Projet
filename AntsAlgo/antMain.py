@@ -21,13 +21,13 @@ def antAlgo(param, graph, tw, tour, iter, level):
         for ant in ants:
             ant.toVisit = tour
             ant.visited = [strating_node]
-            ant.travel(graph, phero, tw)
+            ant.travel(graph, phero, tw, param)
         print("----------------------------------------------------")
         for i in range(len(phero)):         #Evaportaion
             for j in range(len(phero)):
                 phero[i][j] = phero[i][j] * RHO
         for ant in ants :
-            phero = ant.spittingPheromone(phero, graph)
+            phero = ant.spittingPheromone(phero, graph, param)
         firstant = ants[0]
         same = False
         for ant in ants:

@@ -13,7 +13,7 @@ from AntsAlgo.antMain import *
 FLUSH = True
 GENERATE = True
 PRINT = False
-SEARCH = False
+SEARCH = True
 STATS = False
 algo = antAlgo
 
@@ -30,7 +30,7 @@ if(GENERATE):
     n_max = 400
     n_step = 15
     graph_per_size = 5
-    has_traffic = False
+    has_traffic = True
     is_oriented = False
 
     graph_id = 0
@@ -64,8 +64,8 @@ if(GENERATE):
 
 if(SEARCH):
     # Search optimum route
-    graph_id = 1
-    params = {"has_traffic" : True, "is_oriented" : True}
+    graph_id = 0
+    params = {"has_traffic" : True, "is_oriented" : False}
     iter_max = 30
     level_max = 12
     vehicules_nb = 4
