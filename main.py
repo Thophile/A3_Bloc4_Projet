@@ -1,4 +1,3 @@
-from AntsAlgo.antMain import antAlgo
 from graph import Graph 
 from tour import create_tour
 from pymongo import MongoClient
@@ -33,8 +32,8 @@ if(GENERATE):
     has_traffic = True
     is_oriented = False
 
-    graph_id = 0
-    for n in range(n_min, n_max-n_step, n_step) :
+    for n in range(n_min, n_max+n_step, n_step) :
+        graph_id = 0
         for _ in range(graph_per_size):
             
             # Generate a graph with parameters
@@ -64,12 +63,13 @@ if(GENERATE):
 
 if(SEARCH):
     # Search optimum route
-    graph_id = 0
+    graph_info = {"graph_id" : 0, "n": 40}
     params = {"has_traffic" : True, "is_oriented" : False}
     iter_max = 30
     level_max = 12
     vehicules_nb = 4
-    print(create_tour(params, graph_id, iter_max, level_max, vehicules_nb, 0, algo))
+    solution, solution_quality = create_tour(params, graph_info, iter_max, level_max, vehicules_nb, 0, algo)
+    print(solution_quality, solution)
 
 
 if STATS:

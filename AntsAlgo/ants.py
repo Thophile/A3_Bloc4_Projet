@@ -48,7 +48,7 @@ class Ant:
     def travel(self, graph, phero, tw, param):
         self.time = 0
         while self.toVisit:
-            print(self.time)
+            #print(self.time)
             self.choose(graph, phero, param)
             self.deliver(tw)
         #print(self.visited)
@@ -66,7 +66,7 @@ class Ant:
         for i in range(0, len(self.visited)-1):
             deltasPheromones.append(CUL/self.time)
         #print(deltasPheromones)
-        print(self.time)
+        #print(self.time)
         return deltasPheromones 
         
     def spittingPheromone(self, phero, graph, param):
