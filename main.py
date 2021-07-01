@@ -65,7 +65,7 @@ if(SEARCH):
     # Search optimum route
     graph_info = {"graph_id" : 0, "n": 100}
     params = {"has_traffic" : True, "is_oriented" : False}
-    iter_max = 300
+    iter_max = 100
     level_max = 15
     vehicules_nb = 4
     start = time.time()

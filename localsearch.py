@@ -1,6 +1,6 @@
 from heuristichelper import *
 
-DEBUG = False
+DEBUG = True
 
 # Local search version
 def local_search(params, graph, tw, tour, iter, level_max):
