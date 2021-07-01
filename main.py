@@ -73,7 +73,7 @@ if(SEARCH):
     solution, solution_quality = create_tour(params, graph_info, iter_max, level_max, vehicules_nb, 0, algo)
     # best current : 4500
     duration = time.time() - start
-    print("Duration(s) : " + str(duration) +"; Quality(%) : " + str(solution_quality) + "Solution : " +str(solution))
+    print("Duration(s) : " + str(duration) +"; Quality(%) : " + str(solution_quality) + "; Solution : " +str(solution))
 
 
 if STATS:
