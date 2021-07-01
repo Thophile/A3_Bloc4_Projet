@@ -12,7 +12,7 @@ from tabou import *
 # Constants
 FLUSH = True
 GENERATE = True
-PRINT = False
+PRINT = True
 SEARCH = True
 STATS = False
 algo = local_search
@@ -26,16 +26,16 @@ if(FLUSH):
     graphs.delete_many({})
 if(GENERATE):
 
-    n_min = 10000
-    n_max = 10000
+    n_min = 100
+    n_max = 100
     n_step = 20
     graph_per_size = 1
 
-    for _ in range(4):
+    for _ in range(1):
         # Using binary to generate boolean dict to test each combination
         b = "{0:b}".format(_)
         if len(b) < 2 : b = '0'+ b
-        params = {"has_traffic" : b[0] == '1', "is_oriented" : b[1] == '1'}
+        params = {"has_traffic" : b[0] != '1', "is_oriented" : b[1] == '1'}
 
         for n in range(n_min, n_max+n_step, n_step) :
             graph_id = 0
@@ -63,9 +63,9 @@ if(GENERATE):
 
 if(SEARCH):
     # Search optimum route
-    graph_info = {"graph_id" : 0, "n": 10000}
+    graph_info = {"graph_id" : 0, "n": 100}
     params = {"has_traffic" : True, "is_oriented" : False}
-    iter_max = 3000
+    iter_max = 300
     level_max = 15
     vehicules_nb = 4
     start = time.time()
