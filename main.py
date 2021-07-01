@@ -10,12 +10,12 @@ from AntsAlgo.antMain import *
 from tabou import *
 
 # Constants
-FLUSH = False
-GENERATE = False
+FLUSH = True
+GENERATE = True
 PRINT = False
 SEARCH = True
 STATS = False
-algo = start_tabou
+algo = local_search
 
 # Connection to MongoDB
 client = MongoClient('localhost', 27017)
@@ -23,13 +23,13 @@ db = client['DataProject']
 graphs = db['graphs']
 
 if(FLUSH):
-    graphs.delete_many({"n":{"$lte":500}})
+    graphs.delete_many({})
 if(GENERATE):
 
-    n_min = 10
-    n_max = 400
+    n_min = 10000
+    n_max = 10000
     n_step = 20
-    graph_per_size = 4
+    graph_per_size = 1
 
     for _ in range(4):
         # Using binary to generate boolean dict to test each combination
@@ -63,13 +63,17 @@ if(GENERATE):
 
 if(SEARCH):
     # Search optimum route
-    graph_info = {"graph_id" : 0, "n": 50}
+    graph_info = {"graph_id" : 0, "n": 10000}
     params = {"has_traffic" : True, "is_oriented" : False}
-    iter_max = 30
-    level_max = 12
+    iter_max = 3000
+    level_max = 15
     vehicules_nb = 4
+    start = time.time()
+    # Getting a row for verbal param output
     solution, solution_quality = create_tour(params, graph_info, iter_max, level_max, vehicules_nb, 0, algo)
-    print(solution_quality, solution)
+    # best current : 4500
+    duration = time.time() - start
+    print("Duration(s) : " + str(duration) +"; Quality(%) : " + str(solution_quality) + "Solution : " +str(solution))
 
 
 if STATS:
