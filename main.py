@@ -10,12 +10,12 @@ from AntsAlgo.antMain import *
 from tabou import *
 
 # Constants
-FLUSH = True
-GENERATE = True
-PRINT = True
-SEARCH = False
-STATS = True
-algo = antAlgo
+FLUSH = False
+GENERATE = False
+PRINT = False
+SEARCH = True
+STATS = False
+algo = start_tabou
 
 # Connection to MongoDB
 client = MongoClient('localhost', 27017)
@@ -63,7 +63,7 @@ if(GENERATE):
 
 if(SEARCH):
     # Search optimum route
-    graph_info = {"graph_id" : 0, "n": 40}
+    graph_info = {"graph_id" : 0, "n": 50}
     params = {"has_traffic" : True, "is_oriented" : False}
     iter_max = 30
     level_max = 12
