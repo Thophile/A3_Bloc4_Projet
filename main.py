@@ -15,7 +15,7 @@ GENERATE = True
 PRINT = True
 SEARCH = False
 STATS = True
-algo = start_tabou
+algo = antAlgo
 
 # Connection to MongoDB
 client = MongoClient('localhost', 27017)
